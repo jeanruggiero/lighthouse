@@ -63,7 +63,7 @@ void run(int (*test_func)(void)) {
  * condition that should cause the test to fail. It prints a message to the
  * terminal with an indication of the failure. */
 int failed(void) {
-    printf(KRED "TEST FAILED: %s\n\n" RESET, get_function_name());
+    printf(KRED "\nTEST FAILED: %s\n" RESET, get_function_name());
     return 0;
 }
 
@@ -71,7 +71,7 @@ int failed(void) {
  * any conditions that should cause your test to fail. It prints a message to
  * the terminal with an indication that the test passed. */
 int success(void) {
-    printf("TEST PASSED: %s\n\n", get_function_name()); 
+    printf("\nTEST PASSED: %s\n", get_function_name()); 
     return 1;
 }
 
@@ -117,7 +117,7 @@ void print_testing_summary() {
         printf(KGRN);
     }
 
-    printf("\n******************** TESTING SUMMARY ****************\n");
+    printf("\n\n******************** TESTING SUMMARY ****************\n");
     printf("\nRan %d tests: ", test_count);
     printf("Passed: %d | Failed: %d\n\n", successful_test_count,
         failed_test_count);

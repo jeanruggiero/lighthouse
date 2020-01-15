@@ -2,7 +2,7 @@
 /* Compile with gcc -rdynamic tests.c -o test for proper output. */
 
 #include <stdio.h>  // For IO operations
-#include <stdlib.h> // for malloc/free
+//#include <stdlib.h> // for malloc/free
 
 /* This adds Lighthouse to your project. */
 #include "lighthouse.h"
