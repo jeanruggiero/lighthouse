@@ -16,61 +16,62 @@ A lightweight famework for testing C programs from the command line.
 ## Example
 
 Here's an example of how to use Lighthouse. An extended version of this file is part of the repo, so you can clone it to your machine and run it locally using steps 8 and 9 above.
+```c
+#include <stdio.h>
 
-    #include <stdio.h>
+/* This adds Lighthouse to your project. */
+#include "lighthouse.h"
 
-    /* This adds Lighthouse to your project. */
-    #include "lighthouse.h"
+/*********************************** IMPLEMENTATION *************************/
 
-    /*********************************** IMPLEMENTATION *************************/
-
-    /* This function takes an integer indicating the day of the week and returns 1
-     * (true) or 0 (false) indicating whether or not it is the weekend. */
-    int is_weekend(int day) {
-        if ((day > 0) || (day < 7)) {
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-
-    /************************************ TESTS ******************************/
-
-    int test_is_weekend_with_weekday() {    // Test return type must be int
-        if (is_weekend(3) != 0) {
-            return failed();                // Return failed() on failure condition
-        } else {
-            return success();               // Test must return failed() or success()
-        }
-    }
-
-    int test_is_weekend_with_monday() {
-        if (is_weekend(0) != 0) {
-            return failed();
-        } else {
-            return success();
-        }
-    }
-
-    int test_is_weekend_with_negative_number() {
-        if (is_weekend(-1) != -1) {
-            return failed();
-        } else {
-            return success();
-        }
-    }
-
-    /*********************************** RUN TESTS ****************************/
-    int main(){
-
-        run(&test_is_weekend_with_weekday);
-        run(&test_is_weekend_with_monday);
-        run(&test_is_weekend_with_negative_number);
-
-        print_testing_summary();
-
+/* This function takes an integer indicating the day of the week and returns 1
+ * (true) or 0 (false) indicating whether or not it is the weekend. */
+int is_weekend(int day) {
+    if ((day > 0) || (day < 7)) {
         return 0;
+    } else {
+        return 1;
     }
+}
+
+/************************************ TESTS ******************************/
+
+int test_is_weekend_with_weekday() {    // Test return type must be int
+    if (is_weekend(3) != 0) {
+        return failed();                // Return failed() on failure condition
+    } else {
+        return success();               // Test must return failed() or success()
+    }
+}
+
+int test_is_weekend_with_monday() {
+    if (is_weekend(0) != 0) {
+        return failed();
+    } else {
+        return success();
+    }
+}
+
+int test_is_weekend_with_negative_number() {
+    if (is_weekend(-1) != -1) {
+        return failed();
+    } else {
+        return success();
+    }
+}
+
+/*********************************** RUN TESTS ****************************/
+int main(){
+
+    run(&test_is_weekend_with_weekday);
+    run(&test_is_weekend_with_monday);
+    run(&test_is_weekend_with_negative_number);
+
+    print_testing_summary();
+
+    return 0;
+}
+```
 
 When run, this file produces the following output. Failed tests will display in red when run from the terminal.
 
