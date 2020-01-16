@@ -37,15 +37,15 @@ int is_weekend(int day) {
 
 /************************************ TESTS ******************************/
 
-int test_is_weekend_with_weekday() {    // Test return type must be int
+void test_is_weekend_with_weekday() {    // Test return type must be int
     assert(is_weekend(3) == 0);         // Add your test conditions
 }
 
-int test_is_weekend_with_monday() {
+void test_is_weekend_with_monday() {
     assert(is_weekend(0) == 0);
 }
 
-int test_is_weekend_with_negative_number() {
+void test_is_weekend_with_negative_number() {
     assert(is_weekend(-1) == -1);
 }
 
