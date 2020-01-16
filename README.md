@@ -6,10 +6,10 @@ A lightweight famework for testing C programs from the command line.
 1. Clone this repository, then copy `lighthouse.h` file into the folder containing your project
 2. Create test file
 3. `#include "lighthouse.h"` at the top
-4. Write your tests to return `failed()` if a failure condition is met, or `success()` otherwise. Test functions must return `failed()` or `success()`
-5. Call your test within `main()` by passing its function pointer to `run()`: `run(&test_function)`
+4. Write your tests using `assert(condition)`
+5. Call your test within `main()` by passing it to `run()`: `run(test_function)`
 6. To print the results, call `print_testing_summary()` at the end
-7. Compile with `gcc -rdynamic testfile.c -o test`
+7. Compile with `gcc testfile.c -o test`
 8. Run with `./test`
 9. Smile, because now testing is easier!
 
@@ -28,7 +28,7 @@ Here's an example of how to use Lighthouse. An extended version of this file is 
 /* This function takes an integer indicating the day of the week and returns 1
  * (true) or 0 (false) indicating whether or not it is the weekend. */
 int is_weekend(int day) {
-    if ((day > 0) || (day < 7)) {
+    if ((day > 0) && (day < 5)) {
         return 0;
     } else {
         return 1;
@@ -38,35 +38,23 @@ int is_weekend(int day) {
 /************************************ TESTS ******************************/
 
 int test_is_weekend_with_weekday() {    // Test return type must be int
-    if (is_weekend(3) != 0) {
-        return failed();                // Return failed() on failure condition
-    } else {
-        return success();               // Test must return failed() or success()
-    }
+    assert(is_weekend(3) == 0);         // Add your test conditions
 }
 
 int test_is_weekend_with_monday() {
-    if (is_weekend(0) != 0) {
-        return failed();
-    } else {
-        return success();
-    }
+    assert(is_weekend(0) == 0);
 }
 
 int test_is_weekend_with_negative_number() {
-    if (is_weekend(-1) != -1) {
-        return failed();
-    } else {
-        return success();
-    }
+    assert(is_weekend(-1) == -1);
 }
 
 /*********************************** RUN TESTS ****************************/
 int main(){
 
-    run(&test_is_weekend_with_weekday);
-    run(&test_is_weekend_with_monday);
-    run(&test_is_weekend_with_negative_number);
+    run(test_is_weekend_with_weekday);
+    run(test_is_weekend_with_monday);
+    run(test_is_weekend_with_negative_number);
 
     print_testing_summary();
 
@@ -76,12 +64,8 @@ int main(){
 
 When run, this file produces the following output. Failed tests will display in red when run from the terminal.
 
-    TEST PASSED: test_is_weekend_with_weekday
-
-    TEST PASSED: test_is_weekend_with_monday
-
     TEST FAILED: test_is_weekend_with_negative_number
-
+        Assertion Error: line 29
 
     ******************** TESTING SUMMARY ****************
 
@@ -90,26 +74,15 @@ When run, this file produces the following output. Failed tests will display in 
     *****************************************************
 
 
-## The Fine Print
-
-Lighthouse is machine dependent at the moment; it only works on Linux. Efforts may be made in the future to make it more portable.
-
-
 ## API Reference
 
-#### `void run(int (*test_func)(void))`
+#### `run(func_name)`
 
-For each test function you'd like to run, call `run` with a pointer to the test function. Run will execute your test function and keep track of the total number of tests run.
+For each test function you'd like to run, call `run` with the name of the test function. Run will execute your test function and keep track of the total number of tests run.
 
+#### `assert(condition)`
 
-#### `int failed(void)`
-
-If you reach a failure condition (i.e., you called the function you're testing and it didn't do what it was supposed to) in your test function, `return failed()`. `failed` will keep track of how many tests have failed, and print the results of your test to the terminal.
-
-
-#### `int success(void)`
-
-If none of the failure conditions in your test method are met, `return success()`. `success` keeps track of the number of tests passed, and prints the results of your test to the terminal.
+Pass a conditional statement to `assert` to indicate the intended behavior of your functions. If the condition fails, that will cause the test to fail. It will print an assertion error message to the console.
 
 
 #### `void print_testing_summary(void)`
