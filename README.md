@@ -62,7 +62,7 @@ int main(){
 }
 ```
 
-When run, this file produces the following output. Failed tests will display in red when run from the terminal.
+When run, this file produces the following output. Failed tests will display in red when run from the terminal. Successful tests produce no output.
 
     TEST FAILED: test_is_weekend_with_negative_number
         Assertion Error: line 29
@@ -80,13 +80,22 @@ When run, this file produces the following output. Failed tests will display in 
 
 For each test function you'd like to run, call `run` with the name of the test function. Run will execute your test function and keep track of the total number of tests run.
 
+
 #### `assert(condition)`
 
 Pass a conditional statement to `assert` to indicate the intended behavior of your functions. If the condition fails, that will cause the test to fail. It will print an assertion error message to the console. An assert failure will terminate execution of the test function that caused it.
 
 
+#### `before(func_name)`
+
+Pass the name of your setup function to `before` and it will be run before each one of your tests. Potential uses include creating objects to be used by your test function and allocating memory.
+
+
+#### `after(func_name)`
+
+Pass the name of your teardown function to `after` and it will be run after each one of your tests. Potential uses include freeing memory and other cleanup.
+
+
 #### `void print_testing_summary(void)`
 
 Call `print_testing_summary()` at the end of `main()` inside your test file. It will print a color-coded summary of your test results. The summary includes number of tests run, number of tests passed, and number of tests failed. The summary will print in red if any tests fail or green if all tests pass.
-
-
