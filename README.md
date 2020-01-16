@@ -82,7 +82,7 @@ For each test function you'd like to run, call `run` with the name of the test f
 
 #### `assert(condition)`
 
-Pass a conditional statement to `assert` to indicate the intended behavior of your functions. If the condition fails, that will cause the test to fail. It will print an assertion error message to the console.
+Pass a conditional statement to `assert` to indicate the intended behavior of your functions. If the condition fails, that will cause the test to fail. It will print an assertion error message to the console. An assert failure will terminate execution of the test function that caused it.
 
 
 #### `void print_testing_summary(void)`
