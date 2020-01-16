@@ -22,17 +22,38 @@
 #define KYEL  "\x1B[33m"
 #define RESET "\x1B[0m"
 
-#define run(test_func) {errors = 0; test_count++; test_func();}
+/* Macro to run a test function. Keeps track of total test count. Calls setup
+ * and teardown functions.*/
+#define run(test_func) {errors = 0; test_count++; (*_setup_func)(); \
+    test_func(); (*_teardown_func)();} 
+
+/* Macro to keep track of failed tests. Increments failed_test_count and prints
+ * failure message to console. */
 #define FAILED() {failed_test_count++; printf(KRED "\nFAILED: %s\n" RESET, __func__);}
 
+/* Macro to cause a test failure if an assert condition returns false. Keeps
+ * track of the number of assertion errors in a function and causes the test to
+ * fail if the error count is nonzero. */
 #define assert(condition) {if (!(condition)) {FAILED(); errors++; ASSERTION_ERROR; return;}}
 
+/* Macro to print an assertion error to the screen including the line number on
+ * which the assertion error occurred. */
 #define ASSERTION_ERROR printf(KRED "\tAssertion Error: line %i\n" RESET, __LINE__);
+
+/* Stores the setup function to be run before each function. */
+#define before(func_name) {_setup_func = &func_name;}
+
+/* Stores the teardown function to be run after each function. */
+#define after(func_name) {_teardown_func = &func_name;}
 
 /* Error counter. */
 int errors = 0;
 
-// Global variables to count tests run
+/* Setup and teardown function pointers. */
+void (*_setup_func)(void) = NULL;
+void (*_teardown_func)(void) = NULL;
+
+/* Variables to count tests run */
 int test_count = 0;
 int failed_test_count = 0;
 

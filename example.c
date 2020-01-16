@@ -22,12 +22,19 @@ int is_weekend(int day) {
 }
 
 /************************************ TESTS ******************************/
+void set_up() {
+    printf("Do this before each function!\n");
+}
 
-int test_is_weekend_with_weekday() {    // Test return type must be int
+void teardown() {
+    printf("Do this one after.\n");
+}
+
+void test_is_weekend_with_weekday() {    // Test return type must be int
     assert(is_weekend(3) == 0);
 }
 
-int test_is_weekend_with_monday() {
+void test_is_weekend_with_monday() {
     assert(is_weekend(0) == 0);
 }
 
@@ -49,6 +56,10 @@ int test_is_weekend_with_negative_number() {
 
 /*********************************** RUN TESTS ****************************/
 int main(){
+
+    /* Indicate your setup (before) and teardown (after) functions. */
+    before(set_up);
+    after(teardown);
 
     /* For each test you'd like to run, call run() with a pointer to the
      * function (the function name preceeded by &). */
