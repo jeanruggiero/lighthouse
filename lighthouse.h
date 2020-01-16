@@ -22,96 +22,27 @@
 #define KYEL  "\x1B[33m"
 #define RESET "\x1B[0m"
 
-int failed(void);
-int success(void);
-void run(int (*test_func)(void));
-void print_testing_summary(void);
-char *get_function_name(void);
+#define run(test_func) {errors = 0; test_count++; test_func();}
+#define FAILED() {failed_test_count++; printf(KRED "\nFAILED: %s\n" RESET, __func__);}
+
+#define assert(condition) {if (!(condition)) {FAILED(); errors++; ASSERTION_ERROR; return;}}
+
+#define ASSERTION_ERROR printf(KRED "\tAssertion Error: line %i\n" RESET, __LINE__);
+
+/* Error counter. */
+int errors = 0;
 
 // Global variables to count tests run
 int test_count = 0;
-int successful_test_count = 0;
 int failed_test_count = 0;
 
-/* Returns 1 if assertion passes, 0 if failed. */
-int assert_equals(int a, int b) {
-    if (a != b) {
-        printf("Assertion error: ");
-        return failed();
-    } else {
-        return 1;
-    }
-}
-
-/* Helper function that runs test and prints success/fail status. This function
- * also keeps track of how many tests it has run, how many have failed, and how
- * many have passed. In order for it to work, failed tests must return either
- * success() or failed(). */
-void run(int (*test_func)(void)) {
-
-    test_count++;
-
-    if ((*test_func)() == 0) {
-        /* Test failed. */
-        failed_test_count++;
-    } else {
-        successful_test_count++;
-    }
-}
-
-/* This function should be called from your test method if you encounter a
- * condition that should cause the test to fail. It prints a message to the
- * terminal with an indication of the failure. */
-int failed(void) {
-    printf(KRED "\nTEST FAILED: %s\n" RESET, get_function_name());
-    return 0;
-}
-
-/* This function should be called from your test method if you do not encounter
- * any conditions that should cause your test to fail. It prints a message to
- * the terminal with an indication that the test passed. */
-int success(void) {
-    printf("\nTEST PASSED: %s\n", get_function_name()); 
-    return 1;
-}
-
-/* This function queries the callstack and returns the name of the function that
- * called success or failed. It will only work properly if called from within
- * success or failed. */
-char *get_function_name() {
-    void *callstack[32];
-    char **trace;
-    char *function_name = (char *) malloc(sizeof(char) * 100);
-    int frames = backtrace(callstack, 32);
-    char c;
-    int i, j;
-
-    /* An array of strings representing the top 3 frames of the callstack. */
-    trace = backtrace_symbols(callstack, 3);
-   
-    /* Parse the 3rd frame, which corresponds to the test function, in order to
-     * get the name of the test method that called success or failed. */
-    for (i = 0; trace[2][i] != '('; i++) {
-        ;
-    }
-
-    i++;
-
-    for (j = 0; trace[2][i] != '+'; i++, j++) {
-        function_name[j] = trace[2][i];
-    }
-    function_name[j] = '\0';
-
-    free(trace); 
-    return function_name;
-}
 
 /* This function prints a summary of your test results to the terminal. */
 void print_testing_summary() {
 
     /* Set output color to red if there are any failed tests or green if all
      * tests pass. */
-    if (failed_test_count != 0) {
+    if ((failed_test_count) != 0) {
         printf(KRED);
     } else {
         printf(KGRN);
@@ -119,7 +50,7 @@ void print_testing_summary() {
 
     printf("\n\n******************** TESTING SUMMARY ****************\n");
     printf("\nRan %d tests: ", test_count);
-    printf("Passed: %d | Failed: %d\n\n", successful_test_count,
+    printf("Passed: %d | Failed: %d\n\n", test_count - failed_test_count,
         failed_test_count);
     printf("*****************************************************\n\n");
 
