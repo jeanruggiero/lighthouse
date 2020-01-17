@@ -88,7 +88,7 @@ Pass a conditional statement to `assert` to indicate the intended behavior of yo
 
 #### `before(func_name)`
 
-Pass the name of your setup function to `before` and it will be run before each one of your tests. Potential uses include creating objects to be used by your test function and allocating memory.
+Pass the name of your setup function to `before` and it will be run before each one of your tests. Potential uses include creating objects to be used by your test function and allocating memory. Remember that if you use `before()` for memory allocation, you will need to declare a global pointer of the correct type for each block of memory you wish to allocate.
 
 
 #### `after(func_name)`
