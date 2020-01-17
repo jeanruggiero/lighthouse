@@ -15,7 +15,7 @@ A lightweight famework for testing C programs from the command line.
 
 ## Example
 
-Here's an example of how to use Lighthouse. An extended version of this file is part of the repo, so you can clone it to your machine and run it locally using steps 8 and 9 above.
+Here's an example of how to use Lighthouse. An extended version of this file is part of the repo, so you can clone it to your machine and run it locally using steps 7 and 8 above.
 
 ```c
 #include <stdio.h>
@@ -38,7 +38,7 @@ int is_weekend(int day) {
 /************************************ TESTS ******************************/
 
 void test_is_weekend_with_weekday() {    // Test return type must be int
-    assert(is_weekend(3) == 0);         // Add your test conditions
+    assert(is_weekend(3) == 0);          // Add your test conditions
 }
 
 void test_is_weekend_with_monday() {
