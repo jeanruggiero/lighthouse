@@ -15,7 +15,7 @@ A lightweight famework for testing C programs from the command line.
 
 ## Example
 
-Here's an example of how to use Lighthouse. An extended version of this file is part of the repo, so you can clone it to your machine and run it locally using steps 8 and 9 above.
+Here's an example of how to use Lighthouse. An extended version of this file is part of the repo, so you can clone it to your machine and run it locally using steps 7 and 8 above.
 
 ```c
 #include <stdio.h>
@@ -38,7 +38,7 @@ int is_weekend(int day) {
 /************************************ TESTS ******************************/
 
 void test_is_weekend_with_weekday() {    // Test return type must be int
-    assert(is_weekend(3) == 0);         // Add your test conditions
+    assert(is_weekend(3) == 0);          // Add your test conditions
 }
 
 void test_is_weekend_with_monday() {
@@ -88,7 +88,7 @@ Pass a conditional statement to `assert` to indicate the intended behavior of yo
 
 #### `before(func_name)`
 
-Pass the name of your setup function to `before` and it will be run before each one of your tests. Potential uses include creating objects to be used by your test function and allocating memory.
+Pass the name of your setup function to `before` and it will be run before each one of your tests. Potential uses include creating objects to be used by your test function and allocating memory. Remember that if you use `before()` for memory allocation, you will need to declare a global pointer of the correct type for each block of memory you wish to allocate.
 
 
 #### `after(func_name)`

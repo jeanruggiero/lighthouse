@@ -1,8 +1,7 @@
 /* Example file showing usage of Lighthouse test framework. */
-/* Compile with gcc -rdynamic tests.c -o test for proper output. */
+/* Compile with: gcc tests.c -o test */
 
-#include <stdio.h>  // For IO operations
-//#include <stdlib.h> // for malloc/free
+#include <stdio.h>
 
 /* This adds Lighthouse to your project. */
 #include "lighthouse.h"
@@ -61,8 +60,8 @@ int main(){
     before(set_up);
     after(teardown);
 
-    /* For each test you'd like to run, call run() with a pointer to the
-     * function (the function name preceeded by &). */
+    /* For each test you'd like to run, call run() with the name of the test 
+     * function to run. */
     run(test_is_weekend_with_weekday);
     run(test_is_weekend_with_monday);
     run(test_is_weekend_with_friday);
