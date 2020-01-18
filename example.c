@@ -21,6 +21,8 @@ int is_weekend(int day) {
 }
 
 /************************************ TESTS ******************************/
+
+/* Optional setup and teardown routines. */
 void set_up() {
     printf("Do this before each function!\n");
 }
