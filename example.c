@@ -29,7 +29,7 @@ void teardown() {
     printf("Do this one after.\n");
 }
 
-void test_is_weekend_with_weekday() {    // Test return type must be int
+void test_is_weekend_with_weekday() {
     assert(is_weekend(3) == 0);
 }
 

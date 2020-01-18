@@ -25,8 +25,9 @@
 /* Macro to run a test function. Keeps track of total test count. Calls setup
  * and teardown functions.*/
 
-#define run(test_func) {_errors = 0; _test_count++; (*_setup_func)(); \
-    test_func(); (*_teardown_func)();} 
+#define run(test_func) {_errors = 0; _test_count++; if(_setup_func != NULL) \
+    {(*_setup_func)();}; test_func(); \
+    if (_teardown_func != NULL) {(*_teardown_func)();}} 
 
 
 /* Macro to keep track of failed tests. Increments failed_test_count and prints
